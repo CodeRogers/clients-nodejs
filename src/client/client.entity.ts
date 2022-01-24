@@ -1,4 +1,4 @@
-import { City } from 'src/city/entities/city.entity';
+import { City } from '../city/city.entity';
 import {
   Column,
   Entity,
@@ -24,7 +24,7 @@ export class Client {
   @Column()
   city_id: number;
 
-  @ManyToOne(() => City, (city) => city.clients)
+  @ManyToOne(() => City, (city) => city.clients, { lazy: true })
   @JoinColumn({ name: 'city_id' })
   city: City;
 }
