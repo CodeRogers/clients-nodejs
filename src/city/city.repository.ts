@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { City } from './city.entity';
 import { CreateCityDto } from './dto/create-city.dto';
@@ -11,7 +11,7 @@ export class CityRepository extends Repository<City> {
     });
 
     if (cityByName && cityByName.state_id === createCityDto.state_id)
-      throw new BadRequestException(
+      throw new ConflictException(
         `City '${createCityDto.name}' already exist`,
       );
 
