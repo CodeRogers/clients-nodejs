@@ -8,7 +8,7 @@ import { CreateCityDto } from './dto/create-city.dto';
 import { UpdateCityDto } from './dto/update-city.dto';
 import { City } from './city.entity';
 import { CityRepository } from './city.repository';
-import { StateRepository } from 'src/state/state.repository';
+import { StateRepository } from '../state/state.repository';
 
 @Injectable()
 export class CityService {
