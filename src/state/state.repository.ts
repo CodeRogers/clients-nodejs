@@ -21,7 +21,7 @@ export class StateRepository extends Repository<State> {
   }
 
   async findOneByName(name: string) {
-    let stateByName = await this.find();
+    let stateByName = await this.find({ relations: ['cities'] });
     stateByName = stateByName.filter(
       (state) => state.name.toLowerCase() === name.toLowerCase(),
     );
