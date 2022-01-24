@@ -5,9 +5,10 @@ import { CreateCityDto } from './dto/create-city.dto';
 
 @EntityRepository(City)
 export class CityRepository extends Repository<City> {
-
   async createCity(createCityDto: CreateCityDto): Promise<City> {
-    const cityByName = await this.findOneByName(createCityDto.name)
+    const cityByName = await this.findOne({
+      where: { name: createCityDto.name },
+    });
 
     if (cityByName && cityByName.state_id === createCityDto.state_id)
       throw new BadRequestException(
