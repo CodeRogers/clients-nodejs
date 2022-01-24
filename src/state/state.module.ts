@@ -6,6 +6,7 @@ import { StateRepository } from './state.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StateRepository])],
+  exports: [TypeOrmModule],
   controllers: [StateController],
   providers: [StateService]
 })
