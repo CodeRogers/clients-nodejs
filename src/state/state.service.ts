@@ -13,8 +13,8 @@ export class StateService {
   ) {}
 
   // Insert a new State into database
-  create(createStateDto: CreateStateDto): Promise<State> {
-    return this.stateRepository.createState(createStateDto);
+  async create(createStateDto: CreateStateDto): Promise<State> {
+    return await this.stateRepository.createState(createStateDto);
   }
 
   // Find all States from the database
