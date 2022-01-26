@@ -10,5 +10,5 @@ export class State {
   name: string;
 
   @OneToMany(() => City, (city) => city.state)
-  cities: City[];
+  cities?: City[];
 }

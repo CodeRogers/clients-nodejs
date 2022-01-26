@@ -14,7 +14,7 @@ import { State } from './state.entity';
 
 @Controller('states')
 export class StateController {
-  constructor(private stateService: StateService) {}
+  constructor(private readonly stateService: StateService) {}
 
   @Post()
   create(@Body() createStateDto: CreateStateDto): Promise<State> {
@@ -27,7 +27,7 @@ export class StateController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number): Promise<State> {
+  findOne(@Param('id') id: string): Promise<State> {
     return this.stateService.findOne(+id);
   }
 

@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
+import { ConflictException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { City } from './city.entity';
 import { CreateCityDto } from './dto/create-city.dto';
@@ -22,11 +22,6 @@ export class CityRepository extends Repository<City> {
     const cityByName = await this.findOne({
       where: { name: name },
     });
-
-    if (!cityByName)
-      throw new NotFoundException(
-        `Couldn't find any City with name: '${name}'`,
-      );
 
     return cityByName;
   }

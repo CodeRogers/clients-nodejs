@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -26,7 +27,13 @@ export class CityService {
         `Couldn't find a State with id: '${createCityDto.state_id}'`,
       );
 
-    return this.cityRepository.createCity(createCityDto);
+    const city = this.cityRepository.create(createCityDto);
+    const citySaved = await this.cityRepository.createCity(city);
+
+    if (!citySaved)
+      throw new InternalServerErrorException(`Couldn't create a State`);
+
+    return citySaved;
   }
 
   // Find all Cities from the database
@@ -45,8 +52,15 @@ export class CityService {
   }
 
   // Find one City from the database by name
-  findOneByName(name: string): Promise<City> {
-    return this.cityRepository.findOneByName(name);
+  async findOneByName(name: string): Promise<City> {
+    const cityByName = await this.cityRepository.findOneByName(name);
+
+    if (!cityByName)
+      throw new NotFoundException(
+        `Couldn't find any City with name: '${name}'`,
+      );
+
+    return cityByName;
   }
 
   // Update a City from the database by id

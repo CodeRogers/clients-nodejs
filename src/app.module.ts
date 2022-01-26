@@ -9,7 +9,7 @@ import { StateModule } from './state/state.module';
     TypeOrmModule.forRoot(),
     ClientModule,
     CityModule,
-    StateModule
-  ]
+    StateModule,
+  ],
 })
 export class AppModule {}
