@@ -17,32 +17,32 @@ export class ClientController {
   constructor(private readonly clientService: ClientService) {}
 
   @Post()
-  async create(@Body() createClientDto: CreateClientDto): Promise<Client> {
-    return await this.clientService.create(createClientDto);
+  create(@Body() createClientDto: CreateClientDto): Promise<Client> {
+    return this.clientService.create(createClientDto);
   }
 
   @Get()
-  async findAll(): Promise<Client[]> {
-    return await this.clientService.findAll();
+  findAll(): Promise<Client[]> {
+    return this.clientService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Client> {
-    return await this.clientService.findOne(+id);
+  findOne(@Param('id') id: string): Promise<Client> {
+    return this.clientService.findOne(+id);
   }
 
   @Get('name/:name')
-  async findOneByName(@Param('name') name: string): Promise<Client> {
-    return await this.clientService.findClientByName(name)
+  findOneByName(@Param('name') name: string): Promise<Client> {
+    return this.clientService.findOneByName(name)
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return await this.clientService.update(+id, updateClientDto);
+  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
+    return this.clientService.update(+id, updateClientDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.clientService.remove(+id);
+  remove(@Param('id') id: string) {
+    return this.clientService.remove(+id);
   }
 }

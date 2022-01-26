@@ -22,6 +22,9 @@ export class Client {
   birth_date: string;
 
   @Column()
+  age: number
+
+  @Column()
   city_id: number;
 
   @ManyToOne(() => City, (city) => city.clients, { lazy: true })

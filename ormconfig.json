@@ -6,11 +6,12 @@
   "password": "123456",
   "database": "clients_db",
   "autoLoadEntities": true,
-  "synchronize": true,
+  "synchronize": false,
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "migrations": ["dist/database/migrations/*{.ts,.js}"],
+  "migrationsRun": true,
   "cli": {
     "migrationsDir": "src/database/migrations",
-    "entitiesDir": "src/**/*.entity{.ts,.js}"
+    "entitiesDir": "dist/**/*.entity{.ts,.js}"
   }
 }

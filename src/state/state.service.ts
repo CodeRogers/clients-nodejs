@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStateDto } from './dto/create-state.dto';
 import { UpdateStateDto } from './dto/update-state.dto';
@@ -13,8 +18,21 @@ export class StateService {
   ) {}
 
   // Insert a new State into database
-  create(createStateDto: CreateStateDto): Promise<State> {
-    return this.stateRepository.createState(createStateDto);
+  async create(createStateDto: CreateStateDto): Promise<State> {
+    const stateByName = await this.stateRepository.findOneByName(createStateDto.name);
+
+    if (stateByName)
+      throw new ConflictException(
+        `State '${createStateDto.name}' already exist`,
+      );
+
+    const state = this.stateRepository.create(createStateDto);
+    const stateSaved = await this.stateRepository.save(state);
+
+    if (!stateSaved)
+      throw new InternalServerErrorException(`Couldn't create a State`);
+
+    return stateSaved;
   }
 
   // Find all States from the database
@@ -36,18 +54,27 @@ export class StateService {
 
   // Find one State from the database by name, and also an array of cities related with it's
   async findOneByName(name: string): Promise<State> {
-    return this.stateRepository.findOneByName(name);
+    const stateByName = await this.stateRepository.findOneByName(name);
+
+    if (!stateByName)
+      throw new NotFoundException(
+        `Couldn't find any State with name: '${name}'`,
+      );
+
+    return stateByName;
   }
 
   // Update a State from the database by id
   async update(id: number, updateStateDto: UpdateStateDto): Promise<void> {
     const stateById = await this.findOne(id);
+
     await this.stateRepository.update(stateById, updateStateDto);
   }
 
   // Delete one State from the database by id
   async remove(id: number): Promise<void> {
     const stateById = await this.findOne(id);
+
     await this.stateRepository.delete(stateById);
   }
 }

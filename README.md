@@ -26,10 +26,23 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## API Documentation
+```bash
+$ npm run client:docs
+```
+
 ## Installation
 
 ```bash
 $ npm install
+```
+
+## Before running the app
+```bash
+# Login into MySQL
+$ mysql -u'user' -p'password'
+# create a database
+$ mysql create database clients_db;
 ```
 
 ## Running the app
@@ -37,9 +50,10 @@ $ npm install
 ```bash
 # development
 $ npm run start
-
 # watch mode
 $ npm run start:dev
+# production mode
+$ npm run start:prod
 ```
 
 ## Test
@@ -47,6 +61,8 @@ $ npm run start:dev
 ```bash
 # unit tests
 $ npm run test
+# test coverage
+$ npm run test:cov
 ```
 
 ## Support

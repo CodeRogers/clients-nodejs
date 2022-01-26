@@ -22,8 +22,8 @@ export class City {
 
   @ManyToOne(() => State, (state) => state.cities, { lazy: true })
   @JoinColumn({ name: 'state_id' })
-  state: State;
+  state?: State;
 
   @OneToMany(() => Client, (client) => client.city, { lazy: true })
-  clients: Client[];
+  clients?: Client[];
 }
